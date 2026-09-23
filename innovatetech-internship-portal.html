@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovateTech - Internship Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --primary-light: #3b82f6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --text: #374151;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+
+        /* Internship Card */
+        .internship-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .internship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s;
+        }
+
+        .internship-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+
+        .internship-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .company-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .position-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+
+        .position-meta {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meta-icon {
+            color: var(--primary);
+        }
+
+        .skills-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .skill-tag {
+            background: #e0f2fe;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .description {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 15px 0;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        /* Login Form */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: var(--dark);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .login-footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text);
+            margin-top: 20px;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .demo-credentials {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .demo-credentials strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .demo-credentials p {
+            margin: 4px 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .modal-header h2 {
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--text);
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* Status Badge */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-interview {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: var(--light);
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        /* Profile Section */
+        .profile-header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .profile-info h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .profile-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .profile-meta-item {
+            font-size: 14px;
+        }
+
+        .profile-meta-label {
+            color: var(--text);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .profile-meta-value {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Alert */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+            display: none;
+            animation: slideDown 0.3s;
+        }
+
+        .alert.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left-color: var(--success);
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left-color: var(--danger);
+        }
+
+        .alert-info {
+            background: #e0f2fe;
+            color: #0c4a6e;
+            border-left-color: var(--primary);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .nav-menu {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .position-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 500;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo" onclick="navigate('home')">
+                <div class="logo-icon">IT</div>
+                <span>InnovateTech</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a onclick="navigate('home')" class="nav-link active">Home</a></li>
+                <li><a onclick="navigate('internships')" class="nav-link">Internships</a></li>
+                <li><a id="myAppsNav" onclick="navigate('applications')" class="nav-link" style="display:none;">My Applications</a></li>
+                <li><a id="profileNav" onclick="navigate('profile')" class="nav-link" style="display:none;">Profile</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="authBtn" class="btn btn-secondary" onclick="navigate('login')">Login</button>
+                <button id="logoutBtn" class="btn btn-danger" onclick="logout()" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert -->
+    <div class="alert" id="alert"></div>
+
+    <!-- Pages -->
+    
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <h1>🚀 InnovateTech Internship Portal</h1>
+                <p>Launch your career with India's leading technology innovation company</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="navigate('internships')">Browse Internships</button>
+                    <button class="btn btn-secondary" onclick="navigate('login')">Apply Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Active Positions</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Applications</div>
+                    <div class="stat-value" id="totalApps">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Internships Offered</div>
+                    <div class="stat-value">450+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Success Rate</div>
+                    <div class="stat-value">87%</div>
+                </div>
+            </div>
+
+            <!-- Featured Internships -->
+            <div class="card">
+                <h2>🌟 Featured Internship Opportunities</h2>
+                <div class="grid">
+                    <div class="internship-card" onclick="navigate('internships')">
+                        <div class="company-badge">InnovateTech</div>
+                        <div class="position-title">Full Stack Developer</div>
+                        <div class="position-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <span>Bangalore</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏱️</span>
+                                <span>6 months</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">💰</span>
+                                <span>₹25,000/month</span>
+                            </div>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">MongoDB</span>
+                        </div>
+                    </div>
+
+                    <div class="internship-card" onclick="navigate('internships')">
+                        <div class="company-badge">InnovateTech</div>
+                        <div class="position-title">Data Science Intern</div>
+                        <div class="position-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <span>Hyderabad</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏱️</span>
+                                <span>6 months</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">💰</span>
+                                <span>₹20,000/month</span>
+                            </div>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">ML</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+
+                    <div class="internship-card" onclick="navigate('internships')">
+                        <div class="company-badge">InnovateTech</div>
+                        <div class="position-title">UI/UX Designer</div>
+                        <div class="position-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">📍</span>
+                                <span>Mumbai</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏱️</span>
+                                <span>4 months</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">💰</span>
+                                <span>₹18,000/month</span>
+                            </div>
+                        </div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Adobe XD</span>
+                            <span class="skill-tag">Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="card">
+                <h2>Why Join InnovateTech?</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3>💡 Innovation</h3>
+                        <p>Work on cutting-edge technologies and real-world projects that impact millions of users.</p>
+                    </div>
+                    <div>
+                        <h3>🎓 Learning</h3>
+                        <p>Learn from experienced mentors and industry experts in a collaborative environment.</p>
+                    </div>
+                    <div>
+                        <h3>🌟 Growth</h3>
+                        <p>Accelerate your career with competitive stipends and job conversion opportunities.</p>
+                    </div>
+                    <div>
+                        <h3>🤝 Network</h3>
+                        <p>Connect with talented peers and build lasting relationships in the tech industry.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Internships Page -->
+    <div id="internships" class="page">
+        <div class="container" style="padding-top: 30px;">
+            <h1 style="color: var(--dark); margin-bottom: 30px;">🎯 All Internship Opportunities</h1>
+            
+            <div style="display: grid; grid-template-columns: 250px 1fr; gap: 30px;">
+                <!-- Filters -->
+                <div class="card" style="height: fit-content;">
+                    <h3>Filters</h3>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <select id="locationFilter" onchange="filterInternships()">
+                            <option value="">All Locations</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <select id="durationFilter" onchange="filterInternships()">
+                            <option value="">All Durations</option>
+                            <option value="3">3 months</option>
+                            <option value="6">6 months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Min Stipend</label>
+                        <select id="stipendFilter" onchange="filterInternships()">
+                            <option value="">Any Amount</option>
+                            <option value="15000">₹15,000+</option>
+                            <option value="20000">₹20,000+</option>
+                            <option value="25000">₹25,000+</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="resetFilters()">Reset Filters</button>
+                </div>
+
+                <!-- Internship List -->
+                <div id="internshipsList" class="grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🚀</div>
+                    <h2>Welcome Back</h2>
+                    <p style="color: var(--text); font-size: 14px;">Sign in to your InnovateTech account</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Sign In</button>
+                </form>
+
+                <div class="demo-credentials">
+                    <strong>Demo Credentials:</strong>
+                    <p><strong>Student:</strong> student@innovatetech.com / pass123</p>
+                    <p><strong>Admin:</strong> admin@innovatetech.com / admin123</p>
+                </div>
+
+                <div class="login-footer">
+                    Don't have an account? <a href="#" onclick="navigate('register'); return false;">Sign up here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register" class="page">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <div style="font-size: 40px; margin-bottom: 10px;">✨</div>
+                    <h2>Create Account</h2>
+                    <p style="color: var(--text); font-size: 14px;">Join InnovateTech internship program</p>
+                </div>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="regEmail" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="regPhone" required placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>College Name</label>
+                        <input type="text" id="regCollege" required placeholder="Your college">
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="regDepartment" required placeholder="Your department">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Create Account</button>
+                </form>
+
+                <div class="login-footer">
+                    Already have an account? <a href="#" onclick="navigate('login'); return false;">Sign in here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Applications Page -->
+    <div id="applications" class="page" style="padding-top: 30px;">
+        <div class="container">
+            <h1 style="color: var(--dark); margin-bottom: 30px;">📋 My Applications</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Applications</div>
+                    <div class="stat-value" id="appTotal">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Under Review</div>
+                    <div class="stat-value" id="appPending">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Approved</div>
+                    <div class="stat-value" id="appApproved">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Rejected</div>
+                    <div class="stat-value" id="appRejected">0</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Application History</h2>
+                <div class="table-responsive">
+                    <table id="applicationsTable">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Location</th>
+                                <th>Applied Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile" class="page" style="padding-top: 30px;">
+        <div class="container">
+            <div class="profile-header" id="profileHeader"></div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="card">
+                    <h3>Personal Information</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">Full Name</label>
+                            <p id="profileName" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">Email</label>
+                            <p id="profileEmail" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">Phone</label>
+                            <p id="profilePhone" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Academic Information</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">College</label>
+                            <p id="profileCollege" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">Department</label>
+                            <p id="profileDept" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                        <div>
+                            <label style="color: var(--text); font-size: 12px; text-transform: uppercase;">CGPA</label>
+                            <p id="profileCGPA" style="color: var(--dark); font-weight: 600;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Application Form</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <form id="applicationForm" onsubmit="submitApplication(event)">
+                <input type="hidden" id="internshipIdField">
+                
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="appName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="appEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="appPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Current Semester</label>
+                    <input type="number" id="appSemester" min="1" max="8" required>
+                </div>
+                <div class="form-group">
+                    <label>CGPA</label>
+                    <input type="number" id="appCGPA" min="0" max="10" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Previous Experience</label>
+                    <textarea id="appExperience" placeholder="Describe your relevant experience..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Why do you want this internship?</label>
+                    <textarea id="appMotivation" required placeholder="Tell us why you're interested..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Resume Link (Google Drive)</label>
+                    <input type="url" id="appResume" placeholder="https://drive.google.com/...">
+                </div>
+                <div class="divider"></div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Submit Application</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()" style="flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 InnovateTech. All rights reserved. | Internship Portal v2.0</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Store
+        const data = {
+            user: JSON.parse(localStorage.getItem('user')) || null,
+            applications: JSON.parse(localStorage.getItem('applications')) || [],
+            users: JSON.parse(localStorage.getItem('users')) || {
+                'student@innovatetech.com': {
+                    password: 'pass123',
+                    name: 'Raj Kumar',
+                    phone: '+91 98765 43210',
+                    college: 'Indian Institute of Technology',
+                    department: 'Computer Science',
+                    cgpa: 8.2
+                },
+                'admin@innovatetech.com': {
+                    password: 'admin123',
+                    name: 'Admin User',
+                    role: 'admin'
+                }
+            },
+            internships: [
+                {
+                    id: 1,
+                    title: 'Full Stack Developer',
+                    location: 'Bangalore',
+                    duration: 6,
+                    stipend: 25000,
+                    skills: ['React', 'Node.js', 'MongoDB'],
+                    description: 'Build scalable web applications using modern tech stack.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 5
+                },
+                {
+                    id: 2,
+                    title: 'Data Science Intern',
+                    location: 'Hyderabad',
+                    duration: 6,
+                    stipend: 20000,
+                    skills: ['Python', 'Machine Learning', 'SQL'],
+                    description: 'Work on AI/ML projects and analyze large datasets.',
+                    requirements: '4th/5th semester, 7.0+ CGPA',
+                    vacancy: 3
+                },
+                {
+                    id: 3,
+                    title: 'UI/UX Designer',
+                    location: 'Mumbai',
+                    duration: 4,
+                    stipend: 18000,
+                    skills: ['Figma', 'Adobe XD', 'Prototyping'],
+                    description: 'Design beautiful and intuitive user interfaces.',
+                    requirements: '3rd/4th semester, 7.0+ CGPA',
+                    vacancy: 2
+                },
+                {
+                    id: 4,
+                    title: 'Backend Developer',
+                    location: 'Bangalore',
+                    duration: 6,
+                    stipend: 22000,
+                    skills: ['Python', 'Django', 'PostgreSQL'],
+                    description: 'Develop robust backend systems and APIs.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 4
+                },
+                {
+                    id: 5,
+                    title: 'Mobile App Developer',
+                    location: 'Delhi',
+                    duration: 3,
+                    stipend: 15000,
+                    skills: ['React Native', 'Flutter', 'Dart'],
+                    description: 'Create cross-platform mobile applications.',
+                    requirements: '3rd/4th semester, 7.0+ CGPA',
+                    vacancy: 3
+                },
+                {
+                    id: 6,
+                    title: 'DevOps Engineer',
+                    location: 'Bangalore',
+                    duration: 6,
+                    stipend: 24000,
+                    skills: ['Docker', 'Kubernetes', 'AWS'],
+                    description: 'Manage deployment and infrastructure.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 2
+                },
+                {
+                    id: 7,
+                    title: 'QA Engineer',
+                    location: 'Mumbai',
+                    duration: 3,
+                    stipend: 16000,
+                    skills: ['Selenium', 'Testing', 'Bug Tracking'],
+                    description: 'Ensure quality of software products.',
+                    requirements: '2nd/3rd semester, 6.5+ CGPA',
+                    vacancy: 5
+                },
+                {
+                    id: 8,
+                    title: 'Frontend Developer',
+                    location: 'Hyderabad',
+                    duration: 6,
+                    stipend: 23000,
+                    skills: ['Vue.js', 'JavaScript', 'CSS'],
+                    description: 'Build engaging frontend experiences.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 4
+                },
+                {
+                    id: 9,
+                    title: 'Business Analyst',
+                    location: 'Delhi',
+                    duration: 3,
+                    stipend: 17000,
+                    skills: ['Analytics', 'SQL', 'Tableau'],
+                    description: 'Analyze business data and create insights.',
+                    requirements: '3rd/4th semester, 7.0+ CGPA',
+                    vacancy: 3
+                },
+                {
+                    id: 10,
+                    title: 'Cloud Architect',
+                    location: 'Bangalore',
+                    duration: 6,
+                    stipend: 26000,
+                    skills: ['AWS', 'Azure', 'Cloud Design'],
+                    description: 'Design and implement cloud solutions.',
+                    requirements: '5th semester+, 8.0+ CGPA',
+                    vacancy: 1
+                },
+                {
+                    id: 11,
+                    title: 'Cybersecurity Intern',
+                    location: 'Bangalore',
+                    duration: 6,
+                    stipend: 21000,
+                    skills: ['Penetration Testing', 'Security', 'Linux'],
+                    description: 'Secure systems and applications.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 2
+                },
+                {
+                    id: 12,
+                    title: 'Blockchain Developer',
+                    location: 'Mumbai',
+                    duration: 6,
+                    stipend: 25000,
+                    skills: ['Solidity', 'Web3', 'Smart Contracts'],
+                    description: 'Build blockchain applications.',
+                    requirements: '4th/5th semester, 7.5+ CGPA',
+                    vacancy: 2
+                }
+            ]
+        };
+
+        // Initialize localStorage
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify(data.users));
+        }
+
+        // Navigation
+        function navigate(page) {
+            if (page === 'applications' || page === 'profile') {
+                if (!data.user) {
+                    showAlert('Please login first', 'error');
+                    navigate('login');
+                    return;
+                }
+            }
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            updateNavigation();
+
+            // Initialize page content
+            if (page === 'internships') {
+                renderInternships();
+            } else if (page === 'applications') {
+                renderApplications();
+            } else if (page === 'profile') {
+                renderProfile();
+            } else if (page === 'home') {
+                updateStats();
+            }
+        }
+
+        // Authentication
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const users = JSON.parse(localStorage.getItem('users'));
+
+            if (users[email] && users[email].password === password) {
+                data.user = { email, ...users[email] };
+                localStorage.setItem('user', JSON.stringify(data.user));
+                showAlert('Login successful! Welcome ' + data.user.name, 'success');
+                updateNavigation();
+                navigate('home');
+            } else {
+                showAlert('Invalid email or password', 'error');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const users = JSON.parse(localStorage.getItem('users'));
+            const email = document.getElementById('regEmail').value;
+
+            if (users[email]) {
+                showAlert('Email already registered', 'error');
+                return;
+            }
+
+            const newUser = {
+                password: document.getElementById('regPassword').value,
+                name: document.getElementById('regName').value,
+                phone: document.getElementById('regPhone').value,
+                college: document.getElementById('regCollege').value,
+                department: document.getElementById('regDepartment').value,
+                cgpa: 7.0
+            };
+
+            users[email] = newUser;
+            localStorage.setItem('users', JSON.stringify(users));
+            showAlert('Account created! You can now login.', 'success');
+            navigate('login');
+        }
+
+        function logout() {
+            data.user = null;
+            localStorage.removeItem('user');
+            document.getElementById('applicationForm').reset();
+            updateNavigation();
+            navigate('home');
+            showAlert('Logged out successfully', 'success');
+        }
+
+        // Render Internships
+        function renderInternships() {
+            const container = document.getElementById('internshipsList');
+            const internships = getFilteredInternships();
+
+            if (internships.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="empty-icon">🔍</div><h3>No internships found</h3><p>Try adjusting your filters</p></div>';
+                return;
+            }
+
+            container.innerHTML = internships.map(internship => `
+                <div class="internship-card">
+                    <div class="company-badge">InnovateTech</div>
+                    <div class="position-title">${internship.title}</div>
+                    <div class="position-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span>${internship.location}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span>${internship.duration} months</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">💰</span>
+                            <span>₹${internship.stipend.toLocaleString()}/month</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👥</span>
+                            <span>${internship.vacancy} positions</span>
+                        </div>
+                    </div>
+                    <p style="color: var(--text); font-size: 14px; margin: 15px 0;">${internship.description}</p>
+                    <div class="skills-tags">
+                        ${internship.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">
+                        <p style="font-size: 13px; color: var(--text); margin-bottom: 10px;"><strong>Requirements:</strong> ${internship.requirements}</p>
+                        <button class="btn btn-primary" onclick="openApplicationForm(${internship.id})">Apply Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getFilteredInternships() {
+            let filtered = data.internships;
+            
+            const location = document.getElementById('locationFilter')?.value || '';
+            const duration = document.getElementById('durationFilter')?.value || '';
+            const stipend = document.getElementById('stipendFilter')?.value || '';
+
+            if (location) filtered = filtered.filter(i => i.location === location);
+            if (duration) filtered = filtered.filter(i => i.duration == duration);
+            if (stipend) filtered = filtered.filter(i => i.stipend >= parseInt(stipend));
+
+            return filtered;
+        }
+
+        function filterInternships() {
+            renderInternships();
+        }
+
+        function resetFilters() {
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('durationFilter').value = '';
+            document.getElementById('stipendFilter').value = '';
+            renderInternships();
+        }
+
+        // Application Form
+        function openApplicationForm(internshipId) {
+            if (!data.user) {
+                showAlert('Please login first', 'error');
+                navigate('login');
+                return;
+            }
+
+            const internship = data.internships.find(i => i.id === internshipId);
+            if (!internship) return;
+
+            // Check if already applied
+            if (data.applications.some(app => app.internshipId === internshipId && app.email === data.user.email)) {
+                showAlert('You have already applied for this internship', 'error');
+                return;
+            }
+
+            document.getElementById('modalTitle').textContent = `Apply for ${internship.title}`;
+            document.getElementById('internshipIdField').value = internshipId;
+            document.getElementById('appName').value = data.user.name;
+            document.getElementById('appEmail').value = data.user.email;
+            document.getElementById('appPhone').value = data.user.phone || '';
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function submitApplication(e) {
+            e.preventDefault();
+            const internshipId = parseInt(document.getElementById('internshipIdField').value);
+            const internship = data.internships.find(i => i.id === internshipId);
+
+            const application = {
+                id: Date.now(),
+                internshipId,
+                internshipTitle: internship.title,
+                location: internship.location,
+                name: document.getElementById('appName').value,
+                email: document.getElementById('appEmail').value,
+                phone: document.getElementById('appPhone').value,
+                semester: document.getElementById('appSemester').value,
+                cgpa: document.getElementById('appCGPA').value,
+                experience: document.getElementById('appExperience').value,
+                motivation: document.getElementById('appMotivation').value,
+                resume: document.getElementById('appResume').value,
+                status: 'pending',
+                appliedDate: new Date().toLocaleDateString()
+            };
+
+            data.applications.push(application);
+            localStorage.setItem('applications', JSON.stringify(data.applications));
+            closeModal();
+            showAlert('Application submitted successfully!', 'success');
+            document.getElementById('applicationForm').reset();
+        }
+
+        // Render Applications
+        function renderApplications() {
+            if (!data.user) return;
+
+            const userApps = data.applications.filter(app => app.email === data.user.email);
+            const tbody = document.getElementById('applicationsTableBody');
+
+            // Update stats
+            document.getElementById('appTotal').textContent = userApps.length;
+            document.getElementById('appPending').textContent = userApps.filter(a => a.status === 'pending').length;
+            document.getElementById('appApproved').textContent = userApps.filter(a => a.status === 'approved').length;
+            document.getElementById('appRejected').textContent = userApps.filter(a => a.status === 'rejected').length;
+
+            if (userApps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>No applications yet. Start by applying to internships!</p></div></td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = userApps.map(app => `
+                <tr>
+                    <td><strong>${app.internshipTitle}</strong></td>
+                    <td>${app.location}</td>
+                    <td>${app.appliedDate}</td>
+                    <td><span class="badge badge-${app.status}">${app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span></td>
+                    <td>
+                        <button class="btn btn-small btn-secondary" onclick="viewApplication(${app.id})">View Details</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewApplication(appId) {
+            const app = data.applications.find(a => a.id === appId);
+            if (!app) return;
+
+            alert(`
+Position: ${app.internshipTitle}
+Location: ${app.location}
+Status: ${app.status}
+Applied: ${app.appliedDate}
+
+Your Motivation: ${app.motivation}
+
+Check your email for updates!
+            `);
+        }
+
+        // Render Profile
+        function renderProfile() {
+            if (!data.user) return;
+
+            const user = data.user;
+            const initials = user.name.split(' ').map(n => n[0]).join('');
+
+            document.getElementById('profileHeader').innerHTML = `
+                <div class="profile-avatar">${initials}</div>
+                <div class="profile-info">
+                    <h2>${user.name}</h2>
+                    <p style="color: var(--text); margin-bottom: 15px;">${user.email}</p>
+                    <div class="profile-meta">
+                        <div class="profile-meta-item">
+                            <div class="profile-meta-label">College</div>
+                            <div class="profile-meta-value">${user.college}</div>
+                        </div>
+                        <div class="profile-meta-item">
+                            <div class="profile-meta-label">Department</div>
+                            <div class="profile-meta-value">${user.department}</div>
+                        </div>
+                        <div class="profile-meta-item">
+                            <div class="profile-meta-label">CGPA</div>
+                            <div class="profile-meta-value">${user.cgpa}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('profilePhone').textContent = user.phone;
+            document.getElementById('profileCollege').textContent = user.college;
+            document.getElementById('profileDept').textContent = user.department;
+            document.getElementById('profileCGPA').textContent = user.cgpa;
+        }
+
+        // Utilities
+        function updateNavigation() {
+            const loggedIn = !!data.user;
+            document.getElementById('authBtn').style.display = loggedIn ? 'none' : 'block';
+            document.getElementById('logoutBtn').style.display = loggedIn ? 'block' : 'none';
+            document.getElementById('myAppsNav').style.display = loggedIn ? 'block' : 'none';
+            document.getElementById('profileNav').style.display = loggedIn ? 'block' : 'none';
+        }
+
+        function showAlert(message, type = 'info') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert active alert-${type}`;
+            setTimeout(() => alert.classList.remove('active'), 5000);
+        }
+
+        function updateStats() {
+            document.getElementById('totalApps').textContent = data.applications.length;
+        }
+
+        // Initialize
+        updateNavigation();
+        updateStats();
+    </script>
+</body>
+</html>
